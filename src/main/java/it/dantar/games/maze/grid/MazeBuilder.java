@@ -28,25 +28,40 @@ public class MazeBuilder {
 	}
 
 	public void addWall(MazeWall wall) {
+		int wallX = wall.getX();
+		int wallY = wall.getY();
+		MazeRoom room1;
+		MazeRoom room2;
+		if (wallX % 2 == 1) {
+			room1 = new MazeRoom(wallX-1, wallY);
+			room2 = new MazeRoom(wallX+1, wallY);
+		} else {
+			room1 = new MazeRoom(wallX, wallY-1);
+			room2 = new MazeRoom(wallX, wallY+1);
+		}
 		maze.addWall(wall);
-		if (!checkFullReach()) {
+		if (!checkFullReach(room1, room2)) {
 			maze.removeWall(wall);
 			throw new CannotPlaceWallException();
 		};
 	}
 	
-	private boolean checkFullReach() {
+	private boolean checkFullReach(MazeRoom room1, final MazeRoom room2) {
 		MazeWalker walker = new MazeWalker(new MazeMap(maze));
-		final List<MazeRoom> visited = new ArrayList<MazeRoom>();
-		walker.walkAllRooms(new MazeRoom(0, 0), new MazeWalker.RoomVisitor() {
-			public void visit(MazeRoom room) {
-				visited.add(room);
-			}
-			public void leave(MazeRoom room) {}
-		});
-		return visited.size() == maze.getSizeX()*maze.getSizeY();
+		try {
+			walker.walkAllRooms(room1, new MazeWalker.RoomVisitor() {
+				public void visit(MazeRoom room) {
+					if (room.equals(room2)) throw new FoundPathConnectingRooms();
+				}
+				public void leave(MazeRoom room) {}
+			});
+		} catch (FoundPathConnectingRooms e) {
+			return true;
+		}
+		return false;
 	}
 
 	class CannotPlaceWallException extends RuntimeException {private static final long serialVersionUID = 1L;}
+	class FoundPathConnectingRooms extends RuntimeException {private static final long serialVersionUID = 1L;}
 	
 }
