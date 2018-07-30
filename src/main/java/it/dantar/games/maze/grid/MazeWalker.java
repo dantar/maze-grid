@@ -21,10 +21,12 @@ public class MazeWalker {
 		for (MazeRoom mazeRoom : a) {
 			walkAllRooms(mazeRoom, visitor);
 		}
+		visitor.leave(start);
 	}
 
 	public interface RoomVisitor {
 		public void visit(MazeRoom room);
+		public void leave(MazeRoom room);
 	}
 	
 }

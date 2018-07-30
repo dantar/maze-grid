@@ -18,12 +18,13 @@ public class MazeWalkerTest {
 			public void visit(MazeRoom room) {
 				visited.add(room);
 			}
+			public void leave(MazeRoom room) {}
 		});
 		assertEquals(4, visited.size());
 	}
 
 	@Test
-	public void testWalkableClosed() {
+	public void testWalkableClosedVisit() {
 		MazeGrid maze = new MazeGrid(2, 2);
 		maze.addWall(new MazeWall(1, 0));
 		maze.addWall(new MazeWall(1, 2));
@@ -31,6 +32,23 @@ public class MazeWalkerTest {
 		final List<MazeRoom> visited = new ArrayList<MazeRoom>();
 		walker.walkAllRooms(new MazeRoom(0, 0), new MazeWalker.RoomVisitor() {
 			public void visit(MazeRoom room) {
+				visited.add(room);
+			}
+			public void leave(MazeRoom room) {}
+		});
+		assertEquals(2, visited.size());
+	}
+	
+	@Test
+	public void testWalkableClosedLeave() {
+		MazeGrid maze = new MazeGrid(2, 2);
+		maze.addWall(new MazeWall(1, 0));
+		maze.addWall(new MazeWall(1, 2));
+		MazeWalker walker = new MazeWalker(new MazeMap(maze));
+		final List<MazeRoom> visited = new ArrayList<MazeRoom>();
+		walker.walkAllRooms(new MazeRoom(0, 0), new MazeWalker.RoomVisitor() {
+			public void visit(MazeRoom room) {}
+			public void leave(MazeRoom room) {
 				visited.add(room);
 			}
 		});

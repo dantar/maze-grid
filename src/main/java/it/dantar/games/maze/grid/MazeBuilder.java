@@ -42,6 +42,7 @@ public class MazeBuilder {
 			public void visit(MazeRoom room) {
 				visited.add(room);
 			}
+			public void leave(MazeRoom room) {}
 		});
 		return visited.size() == maze.getSizeX()*maze.getSizeY();
 	}
