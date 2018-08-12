@@ -1,12 +1,31 @@
 package it.dantar.games.maze.grid;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope(scopeName=ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class MazeBuilder {
 
 	private MazeGrid maze;
 
+	public MazeBuilder() {
+		super();
+	}
+	
+	@Deprecated
 	public MazeBuilder(MazeGrid grid) {
 		super();
 		this.maze = grid;
+	}
+
+	public MazeGrid getMaze() {
+		return maze;
+	}
+
+	public void setMaze(MazeGrid maze) {
+		this.maze = maze;
 	}
 
 	public void addWall(MazeWall wall) {
