@@ -3,6 +3,8 @@ package it.dantar.games.maze.grid;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 public class MazeGenerator {
 
 	MazeGrid maze;

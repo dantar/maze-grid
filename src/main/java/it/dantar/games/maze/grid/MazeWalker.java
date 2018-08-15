@@ -3,23 +3,28 @@ package it.dantar.games.maze.grid;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope(scopeName=ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class MazeWalker {
 
-	private MazeMap map;
 	List<MazeRoom> visited = new ArrayList<MazeRoom>();
 
-	public MazeWalker(MazeMap map) {
+	public MazeWalker() {
 		super();
-		this.map = map;
 	}
-
-	public void walkAllRooms(MazeRoom start, RoomVisitor visitor) {
+	
+	public void walkAllRooms(MazeMap map, MazeRoom start, RoomVisitor visitor) {
 		if (visited.contains(start)) return;
 		visitor.visit(start);
 		visited.add(start);
 		List<MazeRoom> a = map.connectedRooms(start);
 		for (MazeRoom mazeRoom : a) {
-			walkAllRooms(mazeRoom, visitor);
+			walkAllRooms(map, mazeRoom, visitor);
 		}
 		visitor.leave(start);
 	}

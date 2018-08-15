@@ -1,6 +1,8 @@
 package it.dantar.games.maze.grid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +10,9 @@ import org.springframework.stereotype.Component;
 @Scope(scopeName=ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class MazeBuilder {
 
+	@Autowired
+	ApplicationContext context;
+	
 	private MazeGrid maze;
 
 	public MazeBuilder() {
@@ -37,9 +42,9 @@ public class MazeBuilder {
 	}
 	
 	private boolean checkFullReach(MazeRoom room1, final MazeRoom room2) {
-		MazeWalker walker = new MazeWalker(new MazeMap(maze));
+		MazeWalker walker = context.getBean(MazeWalker.class);
 		try {
-			walker.walkAllRooms(room1, new MazeWalker.RoomVisitor() {
+			walker.walkAllRooms(new MazeMap(maze), room1, new MazeWalker.RoomVisitor() {
 				public void visit(MazeRoom room) {
 					if (room.equals(room2)) throw new FoundPathConnectingRooms();
 				}
