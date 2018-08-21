@@ -24,13 +24,6 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- OpenCSV -->
-		<dependency>
-			<groupId>com.opencsv</groupId>
-			<artifactId>opencsv</artifactId>
-			<version>3.8</version>
-		</dependency>
-		
 		<!-- spring boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
