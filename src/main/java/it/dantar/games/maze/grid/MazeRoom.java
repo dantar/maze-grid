@@ -37,5 +37,13 @@ public class MazeRoom extends MazeElement {
 	public MazeWall westWall() {
 		return new MazeWall(getX()-1, getY());
 	}
+
+	public MazeWall wallTo(MazeRoom next) {
+		if (this.northRoom().equals(next)) return this.northWall();
+		if (this.southRoom().equals(next)) return this.southWall();
+		if (this.eastRoom().equals(next)) return this.eastWall();
+		if (this.westRoom().equals(next)) return this.westWall();
+		throw new RuntimeException("rooms are not connected");
+	}
 	
 }

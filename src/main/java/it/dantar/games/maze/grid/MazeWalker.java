@@ -3,7 +3,6 @@ package it.dantar.games.maze.grid;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -30,6 +29,11 @@ public class MazeWalker {
 	}
 
 	public interface RoomVisitor {
+		public class AbortVisit extends RuntimeException {
+			/**
+			 * Default serial version UID
+			 */
+			private static final long serialVersionUID = 1L;}
 		public void visit(MazeRoom room);
 		public void leave(MazeRoom room);
 	}

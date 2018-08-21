@@ -31,4 +31,28 @@ public class MazeRoomTest {
 		assertEquals(2, room.getY());
 	}
 
+	@Test
+	public void testWallToNorth() {
+		MazeRoom room = new MazeRoom(2, 2);
+		assertEquals(room.wallTo(room.northRoom()), room.northWall());
+	}
+	
+	@Test
+	public void testWallToSouth() {
+		MazeRoom room = new MazeRoom(2, 2);
+		assertEquals(room.wallTo(room.southRoom()), room.southWall());
+	}
+
+	@Test
+	public void testWallToEast() {
+		MazeRoom room = new MazeRoom(2, 2);
+		assertEquals(room.wallTo(room.eastRoom()), room.eastWall());
+	}
+	
+	@Test
+	public void testWallToWest() {
+		MazeRoom room = new MazeRoom(2, 2);
+		assertEquals(room.wallTo(room.westRoom()), room.westWall());
+	}
+	
 }

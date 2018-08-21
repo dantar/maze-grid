@@ -46,5 +46,13 @@ public class MazeGrid {
 	public boolean hasRoom(MazeRoom room) {
 		return room.getX()>=0 && room.getX()/2<sizeX && room.getY()>=0 && room.getY()/2<sizeY;
 	}
-	
+
+	public MazeWall wall(int x, int y) {
+		return new MazeWall(x, y);
+	}
+
+	public MazeRoom room(int x, int y) {
+		return new MazeRoom(x, y);
+	}
+
 }

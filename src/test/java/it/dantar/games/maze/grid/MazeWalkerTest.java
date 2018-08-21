@@ -30,7 +30,7 @@ public class MazeWalkerTest {
 	public void testWalkableEmptyMaze() {
 		MazeGrid maze = new MazeGrid(2, 2);
 		final List<MazeRoom> visited = new ArrayList<MazeRoom>();
-		walker.walkAllRooms(new MazeMap(maze), new MazeRoom(0, 0), new MazeWalker.RoomVisitor() {
+		walker.walkAllRooms(new MazeMap(maze), maze.room(0, 0), new MazeWalker.RoomVisitor() {
 			public void visit(MazeRoom room) {
 				visited.add(room);
 			}
